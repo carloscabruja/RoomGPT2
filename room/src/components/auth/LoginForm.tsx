@@ -1,8 +1,8 @@
-"use client";
-import React from "react";
 import { useState } from "react";
+import Router from "next/router";
 
 export const LoginForm = () => {
+  const loginEndpoint: string = "api/auth/login"
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -15,7 +15,21 @@ export const LoginForm = () => {
     // Validate the input
     if (!email || !password) return;
 
-    
+    try {
+      fetch(loginEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(credentials),
+      }).then((res) => {
+        if (res.status === 200) {
+          Router.push("/dream");
+        } else {
+          console.error("Login failed.");
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }  
   };
 
   return (

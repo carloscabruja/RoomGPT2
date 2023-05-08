@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import cookie from "cookie";
 
-export default async function handler(_req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(_req: NextApiRequest, res: NextApiResponse) {    
+    // TODO: Send credentials to an authentication system
 
     // Fetch data to validate the user
     const response = {
@@ -11,7 +12,7 @@ export default async function handler(_req: NextApiRequest, res: NextApiResponse
     // Create a session cookie
     res.setHeader(
         "Set-Cookie",
-        cookie.serialize("accessToken", JSON.stringify(response), {
+        cookie.serialize("accessToken", JSON.stringify(response.accessToken), {
             httpOnly: true,
             secure: process.env.NODE_ENV !== "development",
             maxAge: 60 * 60,
@@ -19,6 +20,8 @@ export default async function handler(_req: NextApiRequest, res: NextApiResponse
             path: "/",
         })
     );
+
+    
 
     res.status(200).json({ success: true });
 }
