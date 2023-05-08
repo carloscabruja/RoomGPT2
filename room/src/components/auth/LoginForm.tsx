@@ -1,26 +1,21 @@
+"use client";
 import React from "react";
 import { useState } from "react";
 
 export const LoginForm = () => {
-  const [credentials, setCredentials] = React.useState({
+  const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const { email, password } = credentials;
 
     // Validate the input
     if (!email || !password) return;
 
-    const response = fetch("/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    }).then((res) => res.json());
+    
   };
 
   return (
@@ -58,7 +53,6 @@ export const LoginForm = () => {
             setCredentials({ ...credentials, password: e.target.value })
           }
         />
-        <p className="text-xs italic text-red-500">Please choose a password.</p>
       </div>
       <div className="flex items-center justify-between">
         <button

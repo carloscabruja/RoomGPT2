@@ -1,8 +1,7 @@
+import { NextApiRequest, NextApiResponse } from 'next';
 import cookie from "cookie";
 
-export default async function handler(req: any, res: any) {
-
-    const { email, password } = req.body;
+export default async function handler(_req: NextApiRequest, res: NextApiResponse) {
 
     // Fetch data to validate the user
     const response = {
